@@ -1,7 +1,15 @@
 [
     {
+        "merged": "/home/glamvian/AndroidStudioProjects/GitSearch/app/build/intermediates/res/merged/debug/mipmap-xhdpi/ic_launcher_round.png",
+        "source": "/home/glamvian/AndroidStudioProjects/GitSearch/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png"
+    },
+    {
         "merged": "/home/glamvian/Documents/ud851-Exercises-student/Lesson02-GitHub-Repo-Search/GitSearch/app/build/intermediates/res/merged/debug/mipmap-xhdpi/ic_launcher.png",
         "source": "/home/glamvian/Documents/ud851-Exercises-student/Lesson02-GitHub-Repo-Search/GitSearch/app/src/main/res/mipmap-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/home/glamvian/AndroidStudioProjects/GitSearch/app/build/intermediates/res/merged/debug/mipmap-xhdpi/ic_launcher.png",
+        "source": "/home/glamvian/AndroidStudioProjects/GitSearch/app/src/main/res/mipmap-xhdpi/ic_launcher.png"
     },
     {
         "merged": "/home/glamvian/Documents/ud851-Exercises-student/Lesson02-GitHub-Repo-Search/GitSearch/app/build/intermediates/res/merged/debug/mipmap-xhdpi/ic_launcher_round.png",

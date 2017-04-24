@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">GitSearch</string>
     <string name="Search">search</string>
+    <string name="error_message">failed get result,please try again.</string>
 </resources>

@@ -13,6 +13,10 @@ ADDED from /home/glamvian/AndroidStudioProjects/GitSearch/app/src/main/AndroidMa
 	android:versionCode
 		INJECTED from /home/glamvian/AndroidStudioProjects/GitSearch/app/src/main/AndroidManifest.xml
 		INJECTED from /home/glamvian/AndroidStudioProjects/GitSearch/app/src/main/AndroidManifest.xml
+uses-permission#android.permission.INTERNET
+ADDED from /home/glamvian/AndroidStudioProjects/GitSearch/app/src/main/AndroidManifest.xml:4:5-83
+	android:name
+		ADDED from /home/glamvian/AndroidStudioProjects/GitSearch/app/src/main/AndroidManifest.xml:4:22-64
 application
 ADDED from /home/glamvian/AndroidStudioProjects/GitSearch/app/src/main/AndroidManifest.xml:5:5-19:19
 MERGED from [com.android.support:appcompat-v7:25.3.1] /root/.android/build-cache/9aed397bbb4eb58288cc4d301e32d5f86cca74b9/output/AndroidManifest.xml:29:5-20

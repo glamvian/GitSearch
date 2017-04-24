@@ -6,7 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +21,8 @@ public class GithubQuery extends AppCompatActivity {
     private EditText mEditTextSearchBox;
     private TextView mTextViewUrlDisplay;
     private TextView mTextViewResultJson;
+    private TextView mErrorMessageDisplay;
+    private ProgressBar mLoadingIndicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +31,8 @@ public class GithubQuery extends AppCompatActivity {
         mEditTextSearchBox = (EditText)findViewById(R.id.et_search_box);
         mTextViewUrlDisplay = (TextView)findViewById(R.id.tv_url_display);
         mTextViewResultJson = (TextView)findViewById(R.id.tv_github_search_result_json);
+        mErrorMessageDisplay = (TextView)findViewById(R.id.tv_error_message_display);
+        mLoadingIndicator = (ProgressBar)findViewById(R.id.pb_loading_indicator);
     }
 
     @Override
@@ -50,8 +56,35 @@ public class GithubQuery extends AppCompatActivity {
 
     }
 
+    /**
+     * This method will make the view for the json data visible and
+     *  hide error message.
+     *  since it is okay to redundantly set the visibility of view, we don't need
+     *  check wheter each view is currently visible or invisible
+     */
+    private void showJsonDataView(){
+        mErrorMessageDisplay.setVisibility(View.INVISIBLE);
+        mTextViewResultJson.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * this method will ake error message visible and hide the json view.
+     * since it is okay to redundantly set the visibily of view, we don't need
+     * to check wheter each view is currently visibl or invisible
+     */
+    private void showErrorMessage(){
+        mTextViewResultJson.setVisibility(View.INVISIBLE);
+        mErrorMessageDisplay.setVisibility(View.VISIBLE);
+    }
+
     //class AsyncTask untuk menjalankan second thread di background
     public class GithubQueryTask extends AsyncTask<URL, Void, String>{
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mLoadingIndicator.setVisibility(View.VISIBLE);
+        }
 
         @Override
         protected String doInBackground(URL... params) {
@@ -67,8 +100,12 @@ public class GithubQuery extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String githubSearchResults) {
+            mLoadingIndicator.setVisibility(View.INVISIBLE);
             if (githubSearchResults != null && !githubSearchResults.equals("")){
+                showJsonDataView();
                 mTextViewResultJson.setText(githubSearchResults);
+            }else {
+                showErrorMessage();
             }
         }
     }

@@ -9,6 +9,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.root.gitsearch.utilities.NetworkUtils;
+
+import java.net.URL;
+
 public class GithubQuery extends AppCompatActivity {
     private EditText mEditTextSearchBox;
     private TextView mTextViewUrlDisplay;
@@ -30,6 +34,19 @@ public class GithubQuery extends AppCompatActivity {
     }
 
     /**
+     *this method retrieves the search text from the EditText, construct
+     * The URL using @link networkUtils for the github repository you'd like
+     * to find , displays that url in a textview , and finally fires off an asyntask to
+     * perform the get request using our (not yet creating) @link githubQueryTask
+     */
+    private void makeGithubSearchQuery(){
+        String githubQuer = mEditTextSearchBox.getText().toString();
+        URL githubSearchUrl = NetworkUtils.buildUrl(githubQuer);
+        mTextViewUrlDisplay.setText(githubSearchUrl.toString());
+
+    }
+
+    /**
      *
      * method menu dengan menampilakan toast ketika action search di click
      *
@@ -38,9 +55,7 @@ public class GithubQuery extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemWasclikcedId = item.getItemId();
         if (itemWasclikcedId == R.id.action_search){
-            Context context = GithubQuery.this;
-            String textToShow = "search clicked";
-            Toast.makeText(context,textToShow,Toast.LENGTH_SHORT).show();
+            makeGithubSearchQuery();
             return true;
         }
         return super.onOptionsItemSelected(item);

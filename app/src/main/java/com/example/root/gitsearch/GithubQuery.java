@@ -1,6 +1,7 @@
 package com.example.root.gitsearch;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.root.gitsearch.utilities.NetworkUtils;
 
+import java.io.IOException;
 import java.net.URL;
 
 public class GithubQuery extends AppCompatActivity {
@@ -44,11 +46,35 @@ public class GithubQuery extends AppCompatActivity {
         URL githubSearchUrl = NetworkUtils.buildUrl(githubQuer);
         mTextViewUrlDisplay.setText(githubSearchUrl.toString());
 
+        new GithubQueryTask().execute(githubSearchUrl);
+
+    }
+
+    //class AsyncTask untuk menjalankan second thread di background
+    public class GithubQueryTask extends AsyncTask<URL, Void, String>{
+
+        @Override
+        protected String doInBackground(URL... params) {
+            URL searchUrl = params [0];
+            String githubSearchResults = null;
+            try {
+                githubSearchResults = NetworkUtils.getResponseFromHttpUrl(searchUrl);
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+            return githubSearchResults;
+        }
+
+        @Override
+        protected void onPostExecute(String githubSearchResults) {
+            if (githubSearchResults != null && !githubSearchResults.equals("")){
+                mTextViewResultJson.setText(githubSearchResults);
+            }
+        }
     }
 
     /**
-     *
-     * method menu dengan menampilakan toast ketika action search di click
+     *ketika menu search di klik maka akan eksekusi method makeGithubSearchQuery()
      *
      */
     @Override

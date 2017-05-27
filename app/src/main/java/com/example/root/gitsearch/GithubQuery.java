@@ -2,6 +2,7 @@ package com.example.root.gitsearch;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -24,6 +25,9 @@ public class GithubQuery extends AppCompatActivity {
     private TextView mErrorMessageDisplay;
     private ProgressBar mLoadingIndicator;
 
+    private static final String SEARCH_URL = "search";
+    private static final String SEARCH_RESULT = "results";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +37,14 @@ public class GithubQuery extends AppCompatActivity {
         mTextViewResultJson = (TextView)findViewById(R.id.tv_github_search_result_json);
         mErrorMessageDisplay = (TextView)findViewById(R.id.tv_error_message_display);
         mLoadingIndicator = (ProgressBar)findViewById(R.id.pb_loading_indicator);
+
+        if (savedInstanceState !=null){
+            String queryl = savedInstanceState.getString(SEARCH_URL);
+            String rawJson = savedInstanceState.getString(SEARCH_RESULT);
+
+            mTextViewUrlDisplay.setText(queryl);
+            mTextViewResultJson.setText(rawJson);
+        }
     }
 
     @Override
@@ -75,6 +87,16 @@ public class GithubQuery extends AppCompatActivity {
     private void showErrorMessage(){
         mTextViewResultJson.setVisibility(View.INVISIBLE);
         mErrorMessageDisplay.setVisibility(View.VISIBLE);
+    }
+
+    //method untuk menyimpan searchurl dan serachresult
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        String queryl = mTextViewUrlDisplay.getText().toString();
+        String rawjson = mTextViewResultJson.getText().toString();
+        outState.putString(SEARCH_RESULT,rawjson);
+        outState.putString(SEARCH_URL,queryl);
     }
 
     //class AsyncTask untuk menjalankan second thread di background
